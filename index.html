@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Arena - Where Viewers Become Players</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a4c93 0%, #3c1053 50%, #1a2b5c 100%);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #e8e8e8 0%, #b8b8b8 50%, #9e9e9e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15);
+            letter-spacing: -0.02em;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+        }
+
+        /* Common Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Development Notice */
+        .dev-notice {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #c4b5fd;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: 100px 20px;
+        }
+
+        .demo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .demo-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .demo-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Chat Widget */
+        .chat-container {
+            width: 380px;
+            height: 650px;
+            background: #18181b;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .chat-header {
+            background: #1f1f23;
+            padding: 12px 16px;
+            border-bottom: 1px solid #2f2f35;
+            font-weight: 600;
+            font-size: 14px;
+            color: #efeff1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bot-badge {
+            background: #9146ff;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .chat-messages {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #2f2f35;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #464649;
+            border-radius: 3px;
+        }
+
+        .message {
+            padding: 2px 16px 2px 8px;
+            margin: 0;
+            line-height: 1.5;
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            word-wrap: break-word;
+        }
+
+        .message:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .message-content-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-line {
+            display: inline;
+            word-wrap: break-word;
+        }
+
+        .username {
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .username:hover {
+            text-decoration: underline;
+        }
+
+        .message-content {
+            color: #efeff1;
+            word-wrap: break-word;
+        }
+
+        .badge {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            border-radius: 2px;
+            vertical-align: text-bottom;
+        }
+
+        .mod-badge {
+            background: linear-gradient(45deg, #00ad03, #00ff00);
+        }
+
+        .sub-badge {
+            background: linear-gradient(45deg, #9146ff, #b19bf0);
+        }
+
+        .vip-badge {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+        }
+
+        /* Username colors */
+        .color-red { color: #ff6b6b; }
+        .color-blue { color: #4dabf7; }
+        .color-green { color: #51cf66; }
+        .color-orange { color: #ff922b; }
+        .color-purple { color: #9775fa; }
+        .color-yellow { color: #ffd43b; }
+        .color-pink { color: #f783ac; }
+        .color-cyan { color: #22d3ee; }
+
+        /* Prediction Component */
+        .prediction {
+            background: #18181b;
+            margin: 8px 12px;
+            border-radius: 8px;
+            padding: 0;
+            border: 1px solid #3f3f46;
+            overflow: hidden;
+        }
+
+        .prediction-header {
+            background: #1f1f23;
+            padding: 12px 16px;
+            border-bottom: 1px solid #3f3f46;
+        }
+
+        .prediction-title {
+            font-weight: 700;
+            color: #efeff1;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .prediction-subtitle {
+            color: #adadb8;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .prediction-question {
+            color: #efeff1;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 16px 16px 12px 16px;
+            line-height: 1.3;
+        }
+
+        .prediction-options {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .prediction-option {
+            background: #262629;
+            border: 1px solid #3f3f46;
+            border-radius: 6px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .prediction-option:hover {
+            background: #2f2f35;
+            border-color: #52525b;
+        }
+
+        .prediction-option.blue:hover {
+            border-color: #1e90ff;
+            background: rgba(30, 144, 255, 0.1);
+        }
+
+        .prediction-option.pink:hover {
+            border-color: #f472b6;
+            background: rgba(244, 114, 182, 0.1);
+        }
+
+        .prediction-option-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .prediction-option.blue .prediction-option-icon {
+            background: #1e90ff;
+            color: white;
+        }
+
+        .prediction-option.pink .prediction-option-icon {
+            background: #f472b6;
+            color: white;
+        }
+
+        .prediction-option-content {
+            flex: 1;
+        }
+
+        .prediction-option-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: #efeff1;
+            margin-bottom: 2px;
+        }
+
+        .prediction-percentage {
+            font-size: 12px;
+            color: #adadb8;
+        }
+
+        /* Modal Styles */
+        .signup-form, .holdup-message, .thank-you-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .form-container, .holdup-container, .thank-you-container {
+            background: #262629;
+            border-radius: 12px;
+            padding: 32px;
+            width: 320px;
+            text-align: center;
+            border: 2px solid #8b5cf6;
+            animation: form-appear 0.3s ease-out;
+        }
+
+        .holdup-container {
+            border-color: #ef4444;
+        }
+
+        .thank-you-container {
+            border-color: #22c55e;
+        }
+
+        @keyframes form-appear {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .form-title, .holdup-title {
+            color: #8b5cf6;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .holdup-title {
+            color: #ef4444;
+        }
+
+        .form-subtitle, .holdup-subtitle {
+            color: #adadb8;
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .holdup-subtitle {
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .holdup-content {
+            color: #efeff1;
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .holdup-cta {
+            color: #8b5cf6;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .holdup-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            color: #efeff1;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3f3f46;
+            border-radius: 6px;
+            background: #18181b;
+            color: #efeff1;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+
+        .form-input::placeholder {
+            color: #71717a;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .form-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #3f3f46;
+            color: #efeff1;
+        }
+
+        .btn-secondary:hover {
+            background: #52525b;
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 60px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .footer p {
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-container {
+                flex-direction: column;
+            }
+            
+            .demo-content {
+                text-align: center;
+            }
+            
+            .chat-container {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Stream Arena</h1>
+            <h2>🚧 Game Predictions That Run Themselves</h2>
+            <div class="dev-notice">
+                🛠️ <strong>In Development:</strong> We're building the first automated game prediction system using direct game data integration. Be among the first to know when it's ready!
+            </div>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 1rem; max-width: 800px;">Planned: Direct <strong>game integration</strong> that will create predictions automatically from live match data. Zero manual work - just stream and let viewers predict every round outcome.</p>
+            <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 2rem; color: #a855f7; font-weight: 600;">🎯 Starting with CS2 • More games planned • Get notified when ready</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">The Future of Game Streaming</h2>
+            <p class="section-subtitle">We're building the world's first hands-free prediction system that reads live game data to create perfect predictions at exactly the right moments.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Direct Game Data Integration</h3>
+                    <p>Live connection to the match data. Will automatically create "Will [streamer] win this round?" predictions the instant each round starts, with perfect timing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Round Results</h3>
+                    <p>Automatic winner detection from game data. Points will be distributed to correct predictors the moment each round ends - no manual checking needed.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Prediction Timing</h3>
+                    <p>Context-aware triggers for clutch situations, bomb scenarios, and eco rounds. Will create the most engaging predictions when tension is highest.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Zero Configuration</h3>
+                    <p>Launch game and stream. "Stream Arena" will automatically detect your match and start creating predictions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="demo-container">
+            <div class="demo-content">
+                <h2>Stay in Touch</h2>
+                <p>We're building something revolutionary for streamers - the first automated prediction system that reads live game data. Want to know the moment we launch? We made staying in the loop actually fun with our Twitch-style signup experience below.</p>
+                <p><strong>👇 Drop your email and be first to know when "Stream Arena" goes live!</strong></p>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <span>"Stream Arena" Chat (Preview)</span>
+                    <span class="bot-badge">DEMO</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ff8e8e);">M</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="badge mod-badge"></span>
+                                <span class="username color-red">StreamMod</span>: 
+                                <span class="message-content">Round 15 starting! Eco round for T side 💰</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #4dabf7, #74c0fc);">C</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="badge sub-badge"></span>
+                                <span class="username color-blue">CS2_Viewer</span>: 
+                                <span class="message-content">This auto integration idea is amazing! 🔥</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #51cf66, #8ce99a);">T</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="username color-green">TacticalFan</span>: 
+                                <span class="message-content">Can't wait for this to be real!</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #9775fa, #b197fc);">E</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="badge vip-badge"></span>
+                                <span class="username color-purple">EcoExpert</span>: 
+                                <span class="message-content">Auto predictions every round would be perfect</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #ff922b, #ffa94d);">C</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="username color-orange">ClutchWatcher</span>: 
+                                <span class="message-content">Hope they build this soon!</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #f783ac, #faa2c1);">B</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="badge sub-badge"></span>
+                                <span class="username color-pink">BetViewer</span>: 
+                                <span class="message-content">Need this for my favorite CS2 streamers! 💙</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message">
+                        <div class="message-avatar" style="background: linear-gradient(45deg, #22d3ee, #67e8f9);">D</div>
+                        <div class="message-content-wrapper">
+                            <div class="message-line">
+                                <span class="username color-cyan">DataFan</span>: 
+                                <span class="message-content">Live game data integration sounds incredible 🎯</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prediction">
+                        <div class="prediction-header">
+                            <div class="prediction-title">Get Notified</div>
+                            <div class="prediction-subtitle">Join our development updates list for "Stream Arena".</div>
+                        </div>
+                        <div class="prediction-question">
+                            Want to be notified when "Stream Arena" launch? 🎯
+                        </div>
+                        <div class="prediction-options">
+                            <div class="prediction-option blue" onclick="showSignup()">
+                                <div class="prediction-option-icon">✓</div>
+                                <div class="prediction-option-content">
+                                    <div class="prediction-option-text">YES!</div>
+                                    <div class="prediction-percentage">Notify me when ready</div>
+                                </div>
+                            </div>
+                            <div class="prediction-option pink" onclick="handleNo()">
+                                <div class="prediction-option-icon">✗</div>
+                                <div class="prediction-option-content">
+                                    <div class="prediction-option-text">MAYBE</div>
+                                    <div class="prediction-percentage">I'll think about it</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signup Form Modal -->
+                <div class="signup-form" id="signupForm">
+                    <div class="form-container">
+                        <div class="form-title">🛠️ Development Updates</div>
+                        <div class="form-subtitle">
+                            Get notified when "Stream Arena" is ready to test. We'll email you the moment development is complete!
+                        </div>
+                        
+                        <form id="emailForm">
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input 
+                                    type="email" 
+                                    class="form-input" 
+                                    id="email" 
+                                    placeholder="your@email.com" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Twitch Channel (optional)</label>
+                                <input 
+                                    type="text" 
+                                    class="form-input" 
+                                    id="twitchChannel" 
+                                    placeholder="twitch.tv/yourchannel"
+                                >
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="button" class="form-button btn-secondary" onclick="closeSignup()">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="form-button btn-primary">
+                                    Notify Me! 🔔
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Thank You Modal -->
+                <div class="thank-you-message" id="thankYouMessage">
+                    <div class="thank-you-container">
+                        <div class="checkmark">✓</div>
+                        <div class="form-title">You're on the list! 🚀</div>
+                        <div class="form-subtitle">
+                            We'll email you the moment "Stream Arena" is ready to test. Thanks for believing in our vision!
+                        </div>
+                        <button class="form-button btn-primary" onclick="closeThankYou()" style="margin-top: 20px; width: 100%;">
+                            Excited! 🎉
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hold Up Modal -->
+                <div class="holdup-message" id="holdupMessage">
+                    <div class="holdup-container">
+                        <div class="holdup-icon">🤔</div>
+                        <div class="holdup-title">Not sure?</div>
+                        <div class="holdup-subtitle">That's totally fair...</div>
+                        
+                        <div class="holdup-content">
+                            We're building something that doesn't exist yet - automatic CS2 predictions that read live game data.
+                        </div>
+                        
+                        <div class="holdup-cta">
+                            Want to see if we can pull it off?
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button class="form-button btn-primary" onclick="showSignupFromHoldup()">
+                                I'm Curious
+                            </button>
+                            <button class="form-button btn-secondary" onclick="closeHoldup()">
+                                Maybe Later
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="margin-bottom: 0.5rem;">&copy; 2025 Stream Arena. Building CS2 Predictions That Run Themselves.</p>
+            <p style="font-size: 0.9rem; opacity: 0.6;">🛠️ Currently in development • CS2 integration coming soon • More games planned</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSignup() {
+            document.getElementById('signupForm').style.display = 'flex';
+        }
+
+        function closeSignup() {
+            document.getElementById('signupForm').style.display = 'none';
+        }
+
+        function handleNo() {
+            document.getElementById('holdupMessage').style.display = 'flex';
+        }
+
+        function closeHoldup() {
+            document.getElementById('holdupMessage').style.display = 'none';
+            
+            const noOption = document.querySelector('.prediction-option.pink');
+            noOption.style.transform = 'scale(0.95)';
+            noOption.style.opacity = '0.6';
+            
+            setTimeout(() => {
+                noOption.style.transform = 'scale(1)';
+                noOption.style.opacity = '1';
+                noOption.querySelector('.prediction-percentage').textContent = 'Fair enough! 👍';
+            }, 150);
+        }
+
+        function showSignupFromHoldup() {
+            document.getElementById('holdupMessage').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'flex';
+        }
+
+        function closeThankYou() {
+            document.getElementById('thankYouMessage').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'none';
+        }
+
+        // Auto-scroll chat functions
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function smoothScrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.scrollTo({
+                    top: chatMessages.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Dynamic messages
+        const messages = [
+            { username: 'DevFollower', color: 'color-green', message: 'Hope this gets built soon! 🔥', avatar: 'D', avatarColor: '#51cf66' },
+            { username: 'CS2_Dreamer', color: 'color-yellow', message: 'This would change everything for CS2 streams!', avatar: 'C', avatarColor: '#ffd43b' },
+            { username: 'TechViewer', color: 'color-cyan', message: 'Love the direct game data approach! 💜', avatar: 'T', avatarColor: '#22d3ee' }
+        ];
+
+        let messageIndex = 0;
+        function addRandomMessage() {
+            if (messageIndex < messages.length) {
+                const msg = messages[messageIndex];
+                const chatMessages = document.getElementById('chatMessages');
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <div class="message-avatar" style="background: linear-gradient(45deg, ${msg.avatarColor}, ${msg.avatarColor}aa);">${msg.avatar}</div>
+                    <div class="message-content-wrapper">
+                        <div class="message-line">
+                            <span class="username ${msg.color}">${msg.username}</span>: 
+                            <span class="message-content">${msg.message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                const prediction = document.querySelector('.prediction');
+                chatMessages.insertBefore(messageDiv, prediction);
+                
+                setTimeout(() => {
+                    smoothScrollToBottom();
+                }, 50);
+                
+                messageIndex++;
+            }
+        }
+
+        // Form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const twitchChannel = document.getElementById('twitchChannel').value;
+            
+            console.log('Development updates signup:', { email, twitchChannel });
+            
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'flex';
+            
+            this.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                scrollToBottom();
+            }, 100);
+        });
+        
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                scrollToBottom();
+            }, 200);
+        });
+        
+        // Start message timer
+        setInterval(addRandomMessage, 5000);
+    </script>
+</body>
+</html>
