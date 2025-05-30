@@ -954,6 +954,14 @@
                     <h3>🚀 Zero Configuration</h3>
                     <p>Launch game and stream. "Stream Arena" will automatically detect your match and start creating predictions.</p>
                 </div>
+                <div class="feature-card">
+                    <h3>🤝 Play Together</h3>
+                    <p>Let viewers play alongside you, sharing your victories and tensions. When they predict and engage, they become emotionally invested, fostering <b>stronger community bonds</b> and more exciting, shared stream experiences.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💰 Convert Engagement Into Revenue</h3>
+                    <p>When viewers are actively predicting, they stay <b>3x longer on stream</b>, convert to subscribers, and <b>donate more frequently</b>. This isn't just community building – it's an expected <b>revenue multiplier</b>.</p>
+                </div>
             </div>
         </div>
             <div class="demo-section">
@@ -1307,21 +1315,6 @@
             }
         }
 
-        // Form submission
-        document.getElementById('emailForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const twitchChannel = document.getElementById('twitchChannel').value;
-            
-            console.log('Development updates signup:', { email, twitchChannel });
-            
-            document.getElementById('signupForm').style.display = 'none';
-            document.getElementById('thankYouMessage').style.display = 'flex';
-            
-            this.reset();
-        });
-
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1352,61 +1345,124 @@
         // Start message timer
         setInterval(addRandomMessage, 5000);
 
-        function handleEmailSignup(button) {
-            // Get the form
-            const form = button.closest('form');
-            
-            if (form.checkValidity()) {
-                const emailInput = form.querySelector('.email-input');
-                const email = emailInput.value.trim();
-                
-                // Disable button to prevent double submission
-                button.disabled = true;
-                button.textContent = 'Sending...';
-                
-                // Send AJAX request
-                fetch('/add-to-queue', {
+        async function submitEmailToBackend(emailData, onSuccess, onError) {
+            try {
+                const response = await fetch('/add-to-queue', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        email: email
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Network response was not ok');
-                    }
-                })
-                .then(data => {
-                    console.log('Email successfully added to queue:', data);
-                    
-                    // Hide the form
-                    form.style.display = 'none';
-                    
-                    // Show the thank you message
-                    const thanksDiv = form.nextElementSibling;
-                    thanksDiv.style.display = 'flex';
-                })
-                .catch(error => {
-                    console.error('Error adding email to queue:', error);
-                    
-                    // Show error message
-                    alert('Sorry, something went wrong. Please try again.');
-                    
-                    // Re-enable button
-                    button.disabled = false;
-                    button.textContent = 'Stay tuned';
+                    body: JSON.stringify(emailData)
                 });
-                
-            } else {
-                // Trigger browser validation messages
-                form.reportValidity();
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Email successfully added to queue:', data);
+                    onSuccess(data);
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Error adding email to queue:', error);
+                onError(error);
             }
         }
+    // Handler for simple email signup forms (email only)
+    function handleEmailSignup(button) {
+        const form = button.closest('form');
+        
+        if (form.checkValidity()) {
+            const emailInput = form.querySelector('.email-input');
+            const email = emailInput.value.trim();
+            
+            // Disable button to prevent double submission
+            button.disabled = true;
+            const originalText = button.textContent;
+            button.textContent = 'Sending...';
+            
+            // Prepare data for submission
+            const emailData = { email };
+            
+            // Success callback
+            const onSuccess = (data) => {
+                // Hide the form
+                form.style.display = 'none';
+                
+                // Show the thank you message
+                const thanksDiv = form.nextElementSibling;
+                if (thanksDiv && thanksDiv.classList.contains('email-thanks')) {
+                    thanksDiv.style.display = 'flex';
+                }
+            };
+            
+            // Error callback
+            const onError = (error) => {
+                alert('Sorry, something went wrong. Please try again.');
+                
+                // Re-enable button
+                button.disabled = false;
+                button.textContent = originalText;
+            };
+            
+            // Submit to backend
+            submitEmailToBackend(emailData, onSuccess, onError);
+            
+        } else {
+            // Trigger browser validation messages
+            form.reportValidity();
+        }
+    }
+
+    // Handler for detailed signup form (email + optional twitch)
+    function handleDetailedSignup(form) {
+        if (form.checkValidity()) {
+            const email = document.getElementById('email').value.trim();
+            const twitchChannel = document.getElementById('twitchChannel').value.trim();
+            
+            // Find submit button and disable it
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            
+            // Prepare data for submission
+            const emailData = { 
+                email,
+                ...(twitchChannel && { twitchChannel }) // Only include twitch if provided
+            };
+            
+            // Success callback
+            const onSuccess = (data) => {
+                // Hide signup form and show thank you message
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'flex';
+                
+                // Reset form
+                form.reset();
+            };
+            
+            // Error callback
+            const onError = (error) => {
+                alert('Sorry, something went wrong. Please try again.');
+                
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            };
+            
+            // Submit to backend
+            submitEmailToBackend(emailData, onSuccess, onError);
+            
+        } else {
+            form.reportValidity();
+        }
+    }
+
+    // Update the existing form submission event listener
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        handleDetailedSignup(this);
+    });
     </script>
 </body>
 </html>
