@@ -1,20 +1,1412 @@
-    .features-grid {
-        grid-template-columns: 1fr; /* Single column on mobile */
-        gap: 24px;
-        max-width: 100%;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Stream Arena - Game Predictions That Run Themselves</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Archivo", sans-serif;
+            font-optical-sizing: auto;
+            background: linear-gradient(135deg, #0a0e1a 0%, #060811 50%, #0a0e1a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 100px;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background: url(./images/bg.png) top center no-repeat;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 228px 0 0;
+            position: relative;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #f3f7fe;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .intro-text::before,
+        .intro-text::after {
+            content: '';
+            width: 112px;
+            height: 1px;
+            background: #464d60;
+        }
+
+        .main-title {
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 700;
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: #c9d1d9;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .email-signup {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            margin-bottom: 60px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #1b1e33;
+            border-radius: 50px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .email-input {
+            background: transparent;
+            border: none;
+            flex: 1;
+            padding: 14px 20px;
+            font-size: 16px;
+            color: white;
+            outline: none;
+            border-radius: 50px;
+        }
+
+        .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            white-space: nowrap;
+            color: #0f1321;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #aac5f3 0%, #5572b5 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .email-thanks {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 60px;
+            background: #1b1e33;
+            border-radius: 50px;
+            padding: 16px 24px;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            backdrop-filter: blur(20px);
+        }
+
+        .thanks-message {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .mockup-container {
+            position: relative;
+            max-width: 1023px;
+            margin: 0 auto;
+        }
+
+        .mockup-container img {
+            max-width: 100%;
+            height: auto;
+            width: 100%;
+            display: block;
+        }
+
+        .features-section {
+            text-align: center;
+            padding: 120px 0;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .development-status {
+            font-size: 16px;
+            color: #f3f7fe;
+            margin-bottom: 60px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .development-status::before,
+        .development-status::after {
+            content: '';
+            width: 112px;
+            height: 1px;
+            background: #464d60;
+        }
+
+        .main-description {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 100px;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .planning-status {
+            font-size: 16px;
+            color: #f3f7fe;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .planning-status::before,
+        .planning-status::after {
+            content: '';
+            width: 112px;
+            height: 1px;
+            background: #464d60;
+        }
+
+        .feature-description {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: #d6e5ff;
+            margin-bottom: 80px;
+            line-height: 1.4;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .games-showcase {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .cs2-logo {
+            width: 190px;
+        }
+
+        .more-games {
+            padding-top: 20px;
+            font-size: 20px;
+            color: #8b9dc3;
+            font-weight: 500;
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .future-section {
+            text-align: center;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .future-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            color: #f3f7fe;
+            background: linear-gradient(180deg, #D6E5FF 0%, #65759A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .future-subtitle {
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            color: #d6e5ff;
+            margin-bottom: 80px;
+            line-height: 1.4;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: left;
+            padding: 0;
+            background: #171a27;
+            padding: 40px 24px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f3f7fe;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #c9d1d9;
+            line-height: 1.2;
+        }
+
+        .demo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 0;
+        }
+
+        .demo-content {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .demo-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .demo-content p {
+            font-size: 1.1rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .demo-content .email-signup, .demo-content .email-thanks{
+            margin: 0;
+        }
+
+        /* Chat Widget */
+        .chat-container {
+            width: 380px;
+            height: 650px;
+            background: #18181b;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .chat-header {
+            background: #1f1f23;
+            padding: 12px 16px;
+            border-bottom: 1px solid #2f2f35;
+            font-weight: 600;
+            font-size: 14px;
+            color: #efeff1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bot-badge {
+            background: #9146ff;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .chat-messages {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            padding: 8px 0;
+            display: flex;             /* Added */
+            flex-direction: column;    /* Added */
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #2f2f35;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #464649;
+            border-radius: 3px;
+        }
+
+        .message {
+            padding: 2px 16px 2px 8px;
+            margin: 0;
+            line-height: 1.5;
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            word-wrap: break-word;
+        }
+
+        .message:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .message-content-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-line {
+            display: inline;
+            word-wrap: break-word;
+        }
+
+        .username {
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .username:hover {
+            text-decoration: underline;
+        }
+
+        .message-content {
+            color: #efeff1;
+            word-wrap: break-word;
+        }
+
+        .badge {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            border-radius: 2px;
+            vertical-align: text-bottom;
+        }
+
+        .mod-badge {
+            background: linear-gradient(45deg, #00ad03, #00ff00);
+        }
+
+        .sub-badge {
+            background: linear-gradient(45deg, #9146ff, #b19bf0);
+        }
+
+        .vip-badge {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+        }
+
+        /* Username colors */
+        .color-red { color: #ff6b6b; }
+        .color-blue { color: #4dabf7; }
+        .color-green { color: #51cf66; }
+        .color-orange { color: #ff922b; }
+        .color-purple { color: #9775fa; }
+        .color-yellow { color: #ffd43b; }
+        .color-pink { color: #f783ac; }
+        .color-cyan { color: #22d3ee; }
+
+        /* Prediction Component */
+        .prediction {
+            background: #18181b;
+            margin: 8px 12px;
+            border-radius: 8px;
+            padding: 0;
+            border: 1px solid #3f3f46;
+            overflow: hidden;
+            margin-top: auto; /* This is the KEY to stick it to the bottom in a flex column */
+            flex-shrink: 0;   /* Ensure it doesn't shrink if content above is too much */
+        }
+
+        .prediction-header {
+            background: #1f1f23;
+            padding: 12px 16px;
+            border-bottom: 1px solid #3f3f46;
+        }
+
+        .prediction-title {
+            font-weight: 700;
+            color: #efeff1;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .prediction-subtitle {
+            color: #adadb8;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .prediction-question {
+            color: #efeff1;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 16px 16px 12px 16px;
+            line-height: 1.3;
+        }
+
+        .prediction-options {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .prediction-option {
+            background: #262629;
+            border: 1px solid #3f3f46;
+            border-radius: 6px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .prediction-option:hover {
+            background: #2f2f35;
+            border-color: #52525b;
+        }
+
+        .prediction-option.blue:hover {
+            border-color: #1e90ff;
+            background: rgba(30, 144, 255, 0.1);
+        }
+
+        .prediction-option.pink:hover {
+            border-color: #f472b6;
+            background: rgba(244, 114, 182, 0.1);
+        }
+
+        .prediction-option-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .prediction-option.blue .prediction-option-icon {
+            background: #1e90ff;
+            color: white;
+        }
+
+        .prediction-option.pink .prediction-option-icon {
+            background: #f472b6;
+            color: white;
+        }
+
+        .prediction-option-content {
+            flex: 1;
+        }
+
+        .prediction-option-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: #efeff1;
+            margin-bottom: 2px;
+        }
+
+        .prediction-percentage {
+            font-size: 12px;
+            color: #adadb8;
+        }
+
+        /* Modal Styles */
+        .signup-form, .holdup-message, .thank-you-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .form-container, .holdup-container, .thank-you-container {
+            background: #262629;
+            border-radius: 12px;
+            padding: 32px;
+            width: 320px;
+            text-align: center;
+            border: 2px solid #8b5cf6;
+            animation: form-appear 0.3s ease-out;
+        }
+
+        .holdup-container {
+            border-color: #ef4444;
+        }
+
+        .thank-you-container {
+            border-color: #22c55e;
+        }
+
+        @keyframes form-appear {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .form-title, .holdup-title {
+            color: #8b5cf6;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .holdup-title {
+            color: #ef4444;
+        }
+
+        .form-subtitle, .holdup-subtitle {
+            color: #adadb8;
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .holdup-subtitle {
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .holdup-content {
+            color: #efeff1;
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .holdup-cta {
+            color: #8b5cf6;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .holdup-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            color: #efeff1;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3f3f46;
+            border-radius: 6px;
+            background: #18181b;
+            color: #efeff1;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+
+        .form-input::placeholder {
+            color: #71717a;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .form-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #3f3f46;
+            color: #efeff1;
+        }
+
+        .btn-secondary:hover {
+            background: #52525b;
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 60px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .footer p {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 1024px) {
+        .email-signup {
+            max-width: 320px;
+            padding: 3px;
+            }
+
+        .email-input {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            padding: 10px 16px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .features-grid {
+            gap: 30px;
+            max-width: 800px;
+        }
+        
+        .feature-card {
+            padding: 32px 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 0 0;
+            }
+
+            .main-title {
+                font-size: clamp(3rem, 12vw, 5rem);
+            }
+
+            .subtitle {
+                font-size: clamp(1rem, 4vw, 1.4rem);
+            }
+
+            .intro-text::before,
+            .intro-text::after,
+            .development-status::before,
+            .development-status::after,
+            .planning-status::before,
+            .planning-status::after {
+                width: 40px;
+            }
+
+            .features-section {
+                padding: 80px 0;
+            }
+
+            .main-description {
+                margin-bottom: 60px;
+            }
+
+            .feature-description {
+                margin-bottom: 50px;
+            }
+
+            .demo-content .email-signup, .demo-content .email-thanks{
+                margin: 0 auto;
+            }
+            .features-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 24px;
+                max-width: 100%;
+            }
+        
+            .feature-card {
+                padding: 28px 20px;
+                margin: 0 10px; /* Add some side margin */
+            }
+            
+            .feature-card h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+            
+            .feature-card p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <div class="intro-text">Introducing</div>
+            <h1 class="main-title">Stream Arena</h1>
+            <p class="subtitle">Game Predictions That Run Themselves</p>
+            
+            <form class="email-signup" onsubmit="return false;">
+                <input type="email" class="email-input" placeholder="Your email address" required>
+                <button type="submit" class="submit-btn" onclick="handleEmailSignup(this)">Stay tuned</button>
+            </form>
+            <div class="email-thanks" style="display: none;">
+                <span class="thanks-message">We'll email you the moment "Stream Arena" is ready to test. Thanks for believing in our vision! 🚀</span>
+            </div>
+        </div>
+
+        <div class="mockup-container">
+            <img src="./images/stream.png" alt="stream image">
+        </div>
+
+        <div class="features-section">
+            <div class="development-status">🔧 In Development:</div>
+            
+            <h2 class="main-description">
+                We're building the first automated game prediction system using direct game data integration. Be among the first to know when it's ready!
+            </h2>
+
+            <div class="planning-status">📝 We are planning</div>
+            
+            <p class="feature-description">
+                Direct game integration that will create predictions automatically from live match data. Zero manual work - just stream and let viewers predict outcome. Give your fans the interactive experience they crave - increased engagement and longer viewing sessions are guaranteed.
+            </p>
+
+            <div class="games-showcase">
+                <img class="cs2-logo" src="./images/counter-strike-2.svg" alt="Counter Strike 2 logo">
+                <div class="more-games">More games planned</div>
+            </div>
+        </div>
+
+        <div class="future-section">
+            <h2 class="future-title">The Future of Game Streaming</h2>
+            
+            <p class="future-subtitle">
+                We're building the world's first hands-free prediction system that reads live game data to create perfect predictions at exactly the right moments.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🔄 Direct Game Data Integration</h3>
+                    <p>Live connection to the match data. Will automatically create "Will [streamer] win this round?" predictions the instant each round starts, with perfect timing.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>⚡ Instant Results</h3>
+                    <p>Automatic winner detection from game data. Points will be distributed to correct predictors the moment event occurs - no manual checking needed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🎯 Smart Prediction Timing</h3>
+                    <p>Context-aware triggers for clutch situations, bomb scenarios, and eco rounds. Will create the most engaging predictions when tension is highest.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🚀 Zero Configuration</h3>
+                    <p>Launch game and stream. "Stream Arena" will automatically detect your match and start creating predictions.</p>
+                </div>
+            </div>
+        </div>
+            <div class="demo-section">
+                <div class="demo-content">
+                    <h2>Stay in Touch</h2>
+                    <p><strong>👇 Drop your email and be first to know when "Stream Arena" goes live!</strong></p>
+                    <form class="email-signup" onsubmit="return false;">
+                        <input type="email" class="email-input" placeholder="Your email address" required>
+                        <button type="submit" class="submit-btn" onclick="handleEmailSignup(this)">Stay tuned</button>
+                    </form>
+                    <div class="email-thanks" style="display: none;">
+                        <span class="thanks-message">We'll email you the moment "Stream Arena" is ready to test. Thanks for believing in our vision! 🚀</span>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <span>"Stream Arena" Chat (Preview)</span>
+                        <span class="bot-badge">DEMO</span>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ff8e8e);">M</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="badge mod-badge"></span>
+                                    <span class="username color-red">StreamMod</span>: 
+                                    <span class="message-content">Round 15 starting! Eco round for T side 💰</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #4dabf7, #74c0fc);">C</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="badge sub-badge"></span>
+                                    <span class="username color-blue">CS2_Viewer</span>: 
+                                    <span class="message-content">This auto integration idea is amazing! 🔥</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #51cf66, #8ce99a);">T</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="username color-green">TacticalFan</span>: 
+                                    <span class="message-content">Can't wait for this to be real!</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #9775fa, #b197fc);">E</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="badge vip-badge"></span>
+                                    <span class="username color-purple">EcoExpert</span>: 
+                                    <span class="message-content">Auto predictions every round would be perfect</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #ff922b, #ffa94d);">C</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="username color-orange">ClutchWatcher</span>: 
+                                    <span class="message-content">Hope they build this soon!</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #f783ac, #faa2c1);">B</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="badge sub-badge"></span>
+                                    <span class="username color-pink">BetViewer</span>: 
+                                    <span class="message-content">Need this for my favorite CS2 streamers! 💙</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="message">
+                            <div class="message-avatar" style="background: linear-gradient(45deg, #22d3ee, #67e8f9);">D</div>
+                            <div class="message-content-wrapper">
+                                <div class="message-line">
+                                    <span class="username color-cyan">DataFan</span>: 
+                                    <span class="message-content">Live game data integration sounds incredible 🎯</span>
+                                </div>
+                            </div>
+                        </div>
     
-    .feature-card {
-        padding: 28px 20px;
-        margin: 0 10px; /* Add some side margin */
-    }
+                        <div class="prediction">
+                 
+                            <div class="prediction-question">
+                                Streamer gonna CLUTCH this round? 💥"
+                            </div>
+                            <div class="prediction-options">
+                                <div class="prediction-option blue" onclick="showSignup()">
+                                    <div class="prediction-option-icon">✓</div>
+                                    <div class="prediction-option-content">
+                                        <div class="prediction-option-text">YEP!</div>
+                                        <div class="prediction-percentage">Absolute POG!</div>
+                                    </div>
+                                </div>
+                                <div class="prediction-option pink" onclick="showSignup()">
+                                    <div class="prediction-option-icon">✗</div>
+                                    <div class="prediction-option-content">
+                                        <div class="prediction-option-text">NAH</div>
+                                        <div class="prediction-percentage">It's an L this time. 💀</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     
-    .feature-card h3 {
-        font-size: 20px;
-        margin-bottom: 14px;
-    }
+                    <!-- Signup Form Modal -->
+                    <div class="signup-form" id="signupForm">
+                        <div class="form-container">
+                            <div class="form-title">🛠️ Development Updates</div>
+                            <div class="form-subtitle">
+                                Get notified when "Stream Arena" is ready to test. We'll email you the moment development is complete!
+                            </div>
+                            
+                            <form id="emailForm">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        class="form-input" 
+                                        id="email" 
+                                        placeholder="your@email.com" 
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Twitch Channel (optional)</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-input" 
+                                        id="twitchChannel" 
+                                        placeholder="twitch.tv/yourchannel"
+                                    >
+                                </div>
+                                
+                                <div class="form-buttons">
+                                    <button type="button" class="form-button btn-secondary" onclick="closeSignup()">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="form-button btn-primary">
+                                        Notify Me! 🔔
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
     
-    .feature-card p {
-        font-size: 14px;
-        line-height: 1.5;
-    }
+                    <!-- Thank You Modal -->
+                    <div class="thank-you-message" id="thankYouMessage">
+                        <div class="thank-you-container">
+                            <div class="checkmark">✓</div>
+                            <div class="form-title">You're on the list! 🚀</div>
+                            <div class="form-subtitle">
+                                We'll email you the moment "Stream Arena" is ready to test. Thanks for believing in our vision!
+                            </div>
+                            <button class="form-button btn-primary" onclick="closeThankYou()" style="margin-top: 20px; width: 100%;">
+                                Excited! 🎉
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!-- Hold Up Modal -->
+                    <div class="holdup-message" id="holdupMessage">
+                        <div class="holdup-container">
+                            <div class="holdup-icon">🤔</div>
+                            <div class="holdup-title">Not sure?</div>
+                            <div class="holdup-subtitle">That's totally fair...</div>
+                            
+                            <div class="holdup-content">
+                                We're building something that doesn't exist yet - automatic CS2 predictions that read live game data.
+                            </div>
+                            
+                            <div class="holdup-cta">
+                                Want to see if we can pull it off?
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button class="form-button btn-primary" onclick="showSignupFromHoldup()">
+                                    I'm Curious
+                                </button>
+                                <button class="form-button btn-secondary" onclick="closeHoldup()">
+                                    Maybe Later
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+            <p style="margin-bottom: 0.5rem;">&copy; 2025 Stream Arena.</p>
+            <p style="font-size: 0.9rem; opacity: 0.6;">🛠️ Currently in development • CS2 integration coming soon • More games planned</p>
+        </div>
+    </footer>
+
+    <script>
+        // Add some interactivity
+        document.querySelector('.email-input').addEventListener('focus', function() {
+            this.style.transform = 'translateY(-1px)';
+        });
+
+        document.querySelector('.email-input').addEventListener('blur', function() {
+            this.style.transform = 'translateY(0)';
+        });
+
+
+        function showSignup() {
+            document.getElementById('signupForm').style.display = 'flex';
+        }
+
+        function closeSignup() {
+            document.getElementById('signupForm').style.display = 'none';
+        }
+
+        function handleNo() {
+            document.getElementById('holdupMessage').style.display = 'flex';
+        }
+
+        function closeHoldup() {
+            document.getElementById('holdupMessage').style.display = 'none';
+            
+            const noOption = document.querySelector('.prediction-option.pink');
+            noOption.style.transform = 'scale(0.95)';
+            noOption.style.opacity = '0.6';
+            
+            setTimeout(() => {
+                noOption.style.transform = 'scale(1)';
+                noOption.style.opacity = '1';
+                noOption.querySelector('.prediction-percentage').textContent = 'Fair enough! 👍';
+            }, 150);
+        }
+
+        function showSignupFromHoldup() {
+            document.getElementById('holdupMessage').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'flex';
+        }
+
+        function closeThankYou() {
+            document.getElementById('thankYouMessage').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'none';
+        }
+
+        // Auto-scroll chat functions
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function smoothScrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                chatMessages.scrollTo({
+                    top: chatMessages.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Dynamic messages
+        const messages = [
+            { username: 'DevFollower', color: 'color-green', message: 'Hope this gets built soon! 🔥', avatar: 'D', avatarColor: '#51cf66' },
+            { username: 'CS2_Dreamer', color: 'color-yellow', message: 'This would change everything for CS2 streams!', avatar: 'C', avatarColor: '#ffd43b' },
+            { username: 'TechViewer', color: 'color-cyan', message: 'Love the direct game data approach! 💜', avatar: 'T', avatarColor: '#22d3ee' },
+            { username: 'EngageMaster', color: 'color-blue', message: 'This will make streams SO much more interactive! 🤩', avatar: 'E', avatarColor: '#4dabf7' },
+            { username: 'FutureFan', color: 'color-purple', message: 'The future is NOW with automated predictions! 🤖 Can\'t wait!', avatar: 'F', avatarColor: '#9775fa' },
+            { username: 'SimpleStreamer', color: 'color-orange', message: 'Zero config is a lifesaver! Just stream and go. ✅', avatar: 'S', avatarColor: '#ff922b' },
+            { username: 'ClutchKingFan', color: 'color-red', message: 'Smart prediction timing for clutch plays? GIMME! 🤯', avatar: 'C', avatarColor: '#ff6b6b' },
+            { username: 'VarietyVoter', color: 'color-pink', message: 'More games planned? HYPE! 🚀 Looking forward to it!', avatar: 'V', avatarColor: '#f783ac' },
+            { username: 'DataNerd', color: 'color-green', message: 'Instant results and point distribution? That\'s efficient! 👍', avatar: 'D', avatarColor: '#51cf66'},
+            { username: 'StreamFanatic', color: 'color-yellow', message: 'My favorite streamer absolutely needs this tool!', avatar: 'S', avatarColor: '#ffd43b'},
+            { username: 'PluginHunter', color: 'color-cyan', message: 'No more manual polls, awesome! Less work for streamers. 🙌', avatar: 'P', avatarColor: '#22d3ee'},
+            { username: 'AutoWin', color: 'color-blue', message: 'Automated "Will streamer win?" is exactly what I need for my channel points!', avatar: 'A', avatarColor: '#4dabf7'},
+            { username: 'GameChanger', color: 'color-purple', message: 'This is going to be a game changer for viewer engagement. Seriously. 📈', avatar: 'G', avatarColor: '#9775fa'},
+            { username: 'EcoRoundExpert', color: 'color-orange', message: 'Predictions for eco rounds too? Smart! Those are always tense. 😬', avatar: 'E', avatarColor: '#ff922b'},
+            { username: 'BombScenario', color: 'color-red', message: 'Bomb scenario predictions will be SICK! 💣💥', avatar: 'B', avatarColor: '#ff6b6b'},
+            { username: 'HypeTrainConductor', color: 'color-pink', message: 'Let\'s get this hype train for Stream Arena rolling! 🚂💨', avatar: 'H', avatarColor: '#f783ac'},
+            { username: 'LiveDataProvider', color: 'color-green', message: 'Direct game data integration is the key. No more guessing game stats!', avatar: 'L', avatarColor: '#51cf66'},
+            { username: 'EarlyAdopter', color: 'color-yellow', message: 'Sign me up to be an early tester! This looks amazing! 👀', avatar: 'E', avatarColor: '#ffd43b'},
+            { username: 'PredictionPro', color: 'color-cyan', message: 'Finally, a prediction tool that understands the game flow! 🧠', avatar: 'P', avatarColor: '#22d3ee'},
+            { username: 'StreamEnhancer', color: 'color-blue', message: 'This will enhance the viewing experience tenfold. Can\'t wait to see it live! ✨', avatar: 'S', avatarColor: '#4dabf7'},
+            { username: 'AutoMagicFan', color: 'color-purple', message: 'Automated predictions feel like magic! 🧙‍♂️ So excited for this.', avatar: 'A', avatarColor: '#9775fa'},
+            { username: 'CS2Veteran', color: 'color-orange', message: 'As a long-time CS2 player, this system sounds incredibly well-thought-out. Props! 👏', avatar: 'C', avatarColor: '#ff922b'},
+            { username: 'NoMoreManual', color: 'color-red', message: 'Say goodbye to clunky manual poll setups! Hello Stream Arena! 👋', avatar: 'N', avatarColor: '#ff6b6b'},
+            { username: 'InteractionPLUS', color: 'color-pink', message: 'More interaction = more fun! This is what streaming needs. 🎉', avatar: 'I', avatarColor: '#f783ac'},
+            { username: 'NextLevelStream', color: 'color-green', message: 'This is truly next-level streaming tech. Keep up the great work! 🚀', avatar: 'N', avatarColor: '#51cf66'},
+            { username: 'PointsGalore', color: 'color-yellow', message: 'Imagine all the channel points we can bet with this! 💰💰', avatar: 'P', avatarColor: '#ffd43b'}
+        ];
+
+        let messageIndex = 0;
+        function addRandomMessage() {
+            if (messageIndex < messages.length) {
+                const msg = messages[messageIndex];
+                const chatMessages = document.getElementById('chatMessages');
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                // Ensure avatarColor is used in a gradient if that's the style
+  
+                let gradientEndColor = msg.avatarColor + 'aa'; // Default lighter shade
+                if (msg.avatarColor === '#51cf66') gradientEndColor = '#8ce99a';
+                if (msg.avatarColor === '#ffd43b') gradientEndColor = '#ffe066';
+                if (msg.avatarColor === '#22d3ee') gradientEndColor = '#67e8f9';
+                if (msg.avatarColor === '#4dabf7') gradientEndColor = '#74c0fc';
+                if (msg.avatarColor === '#9775fa') gradientEndColor = '#b197fc';
+                if (msg.avatarColor === '#ff922b') gradientEndColor = '#ffa94d';
+                if (msg.avatarColor === '#ff6b6b') gradientEndColor = '#ff8e8e';
+                if (msg.avatarColor === '#f783ac') gradientEndColor = '#faa2c1';
+
+
+                messageDiv.innerHTML = `
+                    <div class="message-avatar" style="background: linear-gradient(45deg, ${msg.avatarColor}, ${gradientEndColor});">${msg.avatar}</div>
+                    <div class="message-content-wrapper">
+                        <div class="message-line">
+                            <span class="username ${msg.color}">${msg.username}</span>: 
+                            <span class="message-content">${msg.message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                const prediction = document.querySelector('.prediction');
+                // Ensure prediction element exists before trying to insert before it
+                if (prediction) {
+                    chatMessages.insertBefore(messageDiv, prediction);
+                } else {
+                    chatMessages.appendChild(messageDiv); // Fallback if prediction element isn't found
+                }
+                
+                setTimeout(() => {
+                    smoothScrollToBottom();
+                }, 50);
+                
+                messageIndex++;
+            }
+        }
+
+        // Form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const twitchChannel = document.getElementById('twitchChannel').value;
+            
+            console.log('Development updates signup:', { email, twitchChannel });
+            
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'flex';
+            
+            this.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                scrollToBottom();
+            }, 100);
+        });
+        
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                scrollToBottom();
+            }, 200);
+        });
+        
+        // Start message timer
+        setInterval(addRandomMessage, 5000);
+
+        function handleEmailSignup(button) {
+            // Get the form
+            const form = button.closest('form');
+            
+            if (form.checkValidity()) {
+                const emailInput = form.querySelector('.email-input');
+                const email = emailInput.value.trim();
+                
+                // Disable button to prevent double submission
+                button.disabled = true;
+                button.textContent = 'Sending...';
+                
+                // Send AJAX request
+                fetch('/add-to-queue', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .then(data => {
+                    console.log('Email successfully added to queue:', data);
+                    
+                    // Hide the form
+                    form.style.display = 'none';
+                    
+                    // Show the thank you message
+                    const thanksDiv = form.nextElementSibling;
+                    thanksDiv.style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Error adding email to queue:', error);
+                    
+                    // Show error message
+                    alert('Sorry, something went wrong. Please try again.');
+                    
+                    // Re-enable button
+                    button.disabled = false;
+                    button.textContent = 'Stay tuned';
+                });
+                
+            } else {
+                // Trigger browser validation messages
+                form.reportValidity();
+            }
+        }
+    </script>
+</body>
+</html>
